@@ -46,8 +46,9 @@ class World {
         for (let i = 0; i < tree_count; i++) {
             // Choose a random coordinate
             let random_coord = available_coords[Math.floor(Math.random() * available_coords.length)];
+            let random_age = Math.floor(Math.random() * 50);
             // Create the tree
-            let new_tree = new Tree(this, random_coord[0], random_coord[1]);
+            let new_tree = new Tree(this, random_coord[0], random_coord[1], random_age);
             // Place the tree in the world
             this.array[random_coord[0]][random_coord[1]] = new_tree;
             this.trees.push(new_tree);
@@ -100,8 +101,14 @@ class World {
     }
 
     // Simulate a period of time in the world
-    step() {
+    step(frameCount) {
         this.trees.forEach(function (tree) {
+            // Grow every 60 frames
+            if (frameCount % 60 == 0) {
+                tree.grow();
+                tree.get_older();
+            }
+
             // Burning trees
             if (tree.burning) {
                 let neighbour_trees = tree.world.get_tree_neighbours(tree.row, tree.col);
@@ -109,6 +116,7 @@ class World {
                 neighbour_trees.forEach(function (neighbour) {
                     neighbour.ignite();
                 })
+                tree.die();
             }
             // Not burning trees
             else {
