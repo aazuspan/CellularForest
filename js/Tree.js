@@ -4,6 +4,8 @@ class Tree {
         this.row = row;
         this.col = col;
         this.burning = false;
+        // Number of rounds the tree has been burning for
+        this.burn_rounds = 0;
         // Current age in years
         this.age = age;
         // Current height
@@ -18,6 +20,7 @@ class Tree {
         this.reproductive_maturity = 10;
         // Probability of seed successfully creating a new tree
         this.seed_viability_rate = 0.01;
+
     }
 
     // Release a seed into a random neighour cell
@@ -61,9 +64,9 @@ class Tree {
         this.age += 1;
     }
 
-    // Random chance to ignite
+    // Random chance to ignite (if mature)
     randomly_ignites() {
-        if (Math.random() < this.world.ignition_rate) {
+        if (Math.random() < this.world.ignition_rate && this.age > this.reproductive_maturity) {
             return true;
         }
         else {

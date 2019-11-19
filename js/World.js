@@ -100,7 +100,7 @@ class World {
     // Simulate a period of time in the world
     step(frameCount) {
         this.trees.forEach(function (tree) {
-            // Grow every 60 frames
+            // Grow every 20 frames
             if (frameCount % 20 == 0) {
                 tree.grow();
                 tree.get_older();
@@ -113,7 +113,14 @@ class World {
                 neighbour_trees.forEach(function (neighbour) {
                     neighbour.ignite();
                 })
-                tree.die();
+
+                // Tree can burn for 1 round without dying
+                if (tree.burn_rounds > 0) {
+                    tree.die();
+                }
+                else {
+                    tree.burn_rounds += 1;
+                }
             }
             // Not burning trees
             else {
