@@ -12,27 +12,39 @@ class Tree {
         this.max_height = 100;
         // Meters of height growth per 60 frames
         this.growth_rate = 2;
+        // Meters of seed dispersal per meter of height
+        this.seed_range_per_height = 0.1
         // Minimum age in years before reproducing
         this.reproductive_maturity = 10;
         // Probability of seed successfully creating a new tree
-        this.seed_viability_rate = 0.001;
+        this.seed_viability_rate = 0.01;
     }
 
     // Release a seed into a random neighour cell
     release_seeds() {
         // Don't waste time choosing a seed location if it won't be viable
         if (Math.random() < this.seed_viability_rate) {
-            const neighbours = this.world.get_neighbours(this.row, this.col);
-            // Pick a neighbour cell at random
-            let random_neighbour = neighbours[Math.floor(Math.random() * neighbours.length)]
-            // If there isn't already a tree there
-            if (!(this.world.array[random_neighbour[0]][random_neighbour[1]] instanceof Tree)) {
-                // Create the new tree
-                let new_tree = new Tree(this.world, random_neighbour[0], random_neighbour[1], 0);
-                // Place the new tree in the world
-                this.world.array[random_neighbour[0]][random_neighbour[1]] = new_tree;
-                // Add it to the world list
-                this.world.trees.push(new_tree);
+            // Calculate seed range based on tree height (plus or minus)
+            const seed_range = Math.ceil(this.seed_range_per_height * this.height);
+
+            // Choose random offsets based on seed range
+            let rand_row_offset = Math.round(Math.random() * -2 * seed_range + seed_range);
+            let rand_col_offset = Math.round(Math.random() * -2 * seed_range + seed_range);
+
+            // Randomly choose where the seed lands within this tree's range
+            const rand_row = rand_row_offset + this.row;
+            const rand_col = rand_col_offset + this.col;
+
+            if (!this.world.is_out_of_bounds(rand_row, rand_col)) {
+                // If there isn't already a tree there
+                if (!this.world.array[rand_row][rand_col]) {
+                    // Create the new tree
+                    let new_tree = new Tree(this.world, rand_row, rand_col, 0);
+                    // Place the new tree in the world
+                    this.world.array[rand_row][rand_col] = new_tree;
+                    // Add it to the world list
+                    this.world.trees.push(new_tree);
+                }
             }
         }
     }
