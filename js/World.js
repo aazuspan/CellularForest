@@ -81,8 +81,8 @@ class World {
         return neighbours;
     }
 
-    // Return a list of coordinates within the Moore neighborhood that are empty
-    get_empty_neighbours(row, col) {
+    // Return a list of coordinates within the Moore neighborhood
+    get_neighbours(row, col) {
         const MOORE_OFFSETS = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
         let neighbours = [];
 
@@ -91,10 +91,7 @@ class World {
             let neighbour_coord = [row + MOORE_OFFSETS[i][0], col + MOORE_OFFSETS[i][1]]
             // If the coordinate is within the array
             if (!this.is_out_of_bounds(neighbour_coord[0], neighbour_coord[1])) {
-                // If the cell is null
-                if (!this.array[neighbour_coord[0]][neighbour_coord[1]]) {
-                    neighbours.push(neighbour_coord);
-                }
+                neighbours.push(neighbour_coord);
             }
         }
         return neighbours;
