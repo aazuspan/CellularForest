@@ -101,7 +101,7 @@ class World {
     step(frameCount) {
         this.trees.forEach(function (tree) {
             // Grow every 60 frames
-            if (frameCount % 60 == 0) {
+            if (frameCount % 20 == 0) {
                 tree.grow();
                 tree.get_older();
             }
@@ -117,6 +117,7 @@ class World {
             }
             // Not burning trees
             else {
+                tree.release_seeds();
                 // Chance for tree to randomly ignite
                 if (tree.randomly_ignites()) {
                     tree.ignite();
