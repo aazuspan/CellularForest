@@ -9,7 +9,6 @@ class Tree {
     // Random chance to ignite
     randomly_ignites() {
         if (Math.random() < this.world.ignition_rate) {
-            console.log('ignition')
             return true;
         }
         else {
@@ -24,6 +23,11 @@ class Tree {
 
     // Tree ceases to exist
     die() {
-
+        // Remove the tree from the cell
+        this.world.array[this.row][this.col] = null;
+        // Get the index of this cell in the world
+        let tree_index = this.world.trees.findIndex(v => v == this);
+        // Delete this cell from the list of world cells
+        this.world.trees.splice(tree_index, 1);
     }
 }
