@@ -1,9 +1,11 @@
 class World {
-    constructor(rows, cols, starting_density = 0.5) {
+    constructor(rows, cols, starting_density = 0.5, ignition_rate = 0.001) {
         this.rows = rows;
         this.cols = cols;
         // Initial tree density as a proportion of land cover (0-1)
-        this.starting_density = staring_density;
+        this.starting_density = starting_density;
+        // Probability of a tree randomly igniting
+        this.ignition_rate = ignition_rate;
         // 2D array of cells within the world
         this.array = this.build();
         // List of cells in the world (uninfected or infected)
@@ -48,7 +50,7 @@ class World {
             let new_tree = new Tree(this, random_coord[0], random_coord[1]);
             // Place the tree in the world
             this.array[random_coord[0]][random_coord[1]] = new_tree;
-            this.trees.push(new_cell);
+            this.trees.push(new_tree);
         }
     }
 
@@ -99,6 +101,23 @@ class World {
 
     // Simulate a period of time in the world
     step() {
+        this.trees.forEach(function (tree) {
+            // Burning trees
+            if (tree.burning) {
+                let neighbour_trees = tree.world.get_tree_neighbours(tree.row, tree.col);
+                // Catch all neighbour trees on fire
+                neighbour_trees.forEach(function (neighbour) {
+                    neighbour.ignite();
+                })
+            }
+            // Not burning trees
+            else {
+                // Chance for tree to randomly ignite
+                if (tree.randomly_ignites()) {
+                    tree.ignite();
+                }
+            }
+        })
     }
 }
 
