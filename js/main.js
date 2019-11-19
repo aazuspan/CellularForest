@@ -1,6 +1,6 @@
-const rows = 300;
-const cols = 300;
-const scale_factor = 2;
+const rows = 200;
+const cols = 200;
+const scale_factor = 3;
 
 world = new World(rows, cols, 0.5, 0.000001);
 world.populate();
