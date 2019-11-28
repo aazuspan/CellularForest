@@ -1,7 +1,7 @@
 const rows = 320;
 const cols = 400;
 // Size of each grid cell in pixels
-const grid_size = 5;
+const grid_size = 10;
 
 const world = generate_world();
 
@@ -9,7 +9,7 @@ const world = generate_world();
 function generate_world() {
     // Default world parameters
     const starting_density = 0.001;
-    const ignition_rate = 0.000001;
+    const ignition_rate = 0.0000001;
 
     // Get current window size
     const width = window.innerWidth;
@@ -36,9 +36,9 @@ function setup() {
 
 
 // Python style range function that returns list of ints between two values
-function range(start, end) {
+function range(start, end, increment = 1) {
     let range_array = [];
-    for (let i = start; i < end; i++) {
+    for (let i = start; i < end; i += increment) {
         range_array.push(i);
     }
     return range_array;
@@ -61,8 +61,7 @@ function draw() {
         else {
             fill(tree.color_variation, 50 + tree.height - tree.color_variation, 50 - tree.color_variation);
         }
-        //ellipse(tree.col * grid_size, tree.row * grid_size, Math.sqrt(tree.height), Math.sqrt(tree.height));
-        polygon(tree.col * grid_size, tree.row * grid_size, Math.sqrt(tree.age / 4), 6);
+        polygon(tree.col * grid_size, tree.row * grid_size, Math.sqrt(tree.age / 6), 6);
     })
 }
 
