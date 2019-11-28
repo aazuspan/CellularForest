@@ -190,7 +190,7 @@ class World {
                 tree.release_seeds();
                 // Chance for tree to randomly ignite
                 if (tree.randomly_ignites()) {
-                    if (!tree.resists_fire) {
+                    if (!tree.resists_fire()) {
                         tree.ignite();
                     }
                 }
