@@ -170,7 +170,9 @@ class World {
                 let neighbour_trees = tree.world.get_tree_neighbours(tree.row, tree.col);
                 // Catch all neighbour trees on fire
                 neighbour_trees.forEach(function (neighbour) {
-                    neighbour.ignite();
+                    if (!neighbour.resists_fire()) {
+                        neighbour.ignite();
+                    }
                 })
 
                 // Tree will burn for 1 round without dying
@@ -188,7 +190,9 @@ class World {
                 tree.release_seeds();
                 // Chance for tree to randomly ignite
                 if (tree.randomly_ignites()) {
-                    tree.ignite();
+                    if (!tree.resists_fire) {
+                        tree.ignite();
+                    }
                 }
             }
         })

@@ -18,8 +18,15 @@ class Tree {
         this.seed_range_per_height = 0.1
         // Minimum age in years before reproducing
         this.reproductive_maturity = 10;
+        // Probability that tree won't catch fire (increases with age)
+        this.fire_resistance = this.age * 0.01;
+        this.max_fire_resistance = 0.9;
+        // Percent that fire resistance increases every year of age
+        this.fire_resistance_increase = 0.01;
         // Probability of seed successfully creating a new tree
         this.seed_viability_rate = 0.01;
+        // Random color variation to make visualization more interesting
+        this.color_variation = Math.random() * 50;
 
     }
 
@@ -62,16 +69,26 @@ class Tree {
     // Age 1 year (every 60 frames)
     get_older() {
         this.age += 1;
+        if (this.fire_resistance < this.max_fire_resistance) {
+            this.fire_resistance *= (1 + this.fire_resistance_increase);
+        }
+    }
+
+    // Random chance to resist fire
+    resists_fire() {
+        if (Math.random() < this.fire_resistance) {
+            return true;
+        }
+        return false;
     }
 
     // Random chance to ignite (if mature)
     randomly_ignites() {
+        // Random chance to catch fire
         if (Math.random() < this.world.ignition_rate && this.age > this.reproductive_maturity) {
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     // Tree catches fire
