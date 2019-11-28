@@ -86,6 +86,47 @@ class World {
         return neighbours;
     }
 
+    // Return the closest tree to a coordinate within a specified search distance
+    get_closest_tree(row, col, search_distance) {
+        // Working list of all trees within the search distance
+        let trees = [];
+
+        // Find all trees within the search distance
+        for (let row_offset of range(-search_distance, search_distance)) {
+            for (let col_offset of range(-search_distance, search_distance)) {
+                // If neighbour is in bounds, add it if it's a tree
+                try {
+                    let neighbour = this.array[row + row_offset][col + col_offset];
+                    if (neighbour instanceof Tree) {
+                        trees.push(neighbour)
+                    }
+                }
+                catch { }
+            }
+        }
+
+        // Track tree object and its distance from the coordinate so distance only has to be calculated once
+        let closest_tree = { tree: null, distance: null };
+
+        trees.forEach(function (tree) {
+            // Calculate rough distance from the neighbour tree to the coordinate
+            let tree_distance = tree.world.get_rough_distance(col, row, tree.col, tree.row);
+
+            // If it is the first tree checked or if it is closer than previous checked trees
+            if (!closest_tree.tree || tree_distance < closest_tree.distance) {
+                closest_tree.tree = tree;
+                closest_tree.distance = tree_distance;
+            }
+        })
+        return closest_tree.tree;
+    }
+
+    // Return rough Euclidean distance between two points
+    get_rough_distance(x0, y0, x1, y1) {
+        // Don't bother taking square root because I'm only comparing distances and don't need accurate distance
+        return (x0 - x1) ** 2 + (y0 - y1) ** 2;
+    }
+
     // Return a list of coordinates within the Moore neighborhood
     get_neighbours(row, col) {
         const MOORE_OFFSETS = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
