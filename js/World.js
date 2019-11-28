@@ -188,12 +188,11 @@ class World {
                 tree.grow();
                 tree.get_older();
                 tree.release_seeds();
-                // Chance for tree to randomly ignite
+                // Chance for tree to randomly ignite (fire resistance ignored)
                 if (tree.randomly_ignites()) {
-                    if (!tree.resists_fire()) {
-                        tree.ignite();
-                    }
+                    tree.ignite();
                 }
+
             }
         })
     }
