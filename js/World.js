@@ -67,6 +67,25 @@ class World {
         return false;
     }
 
+
+    // Ignite a tree when it is clicked on (or the closest tree)
+    ignite_at_mouse() {
+        const target_row = Math.ceil(mouseY / grid_size);
+        const target_col = Math.ceil(mouseX / grid_size);
+        try {
+            world.array[target_row][target_col].ignite();
+        }
+        // If there isn't a tree at that location
+        catch (TypeError) {
+            // Try to find a nearby tree to ignite
+            const closest_tree = world.get_closest_tree(target_row, target_col, 2);
+            // If a tree was found within the search_distance, ignite it
+            if (closest_tree) {
+                closest_tree.ignite();
+            }
+        }
+    }
+
     // Return a list of trees within the Moore neighborhood of a coordinate
     get_tree_neighbours(row, col) {
         const MOORE_OFFSETS = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];

@@ -30,33 +30,18 @@ function generate_world() {
 function setup() {
     const canv = createCanvas(world.cols * grid_size, world.rows * grid_size);
     // Create event listener for clicking to start a fire
-    canv.mouseClicked(ignite_at_mouse);
+    canv.mouseClicked(world.ignite_at_mouse);
     noStroke();
 }
 
 
-// Ignite a tree when it is clicked on
-function ignite_at_mouse() {
-    const target_row = Math.ceil(mouseY / grid_size);
-    const target_col = Math.ceil(mouseX / grid_size);
-    try {
-        world.array[target_row][target_col].ignite();
+// Python style range function that returns list of ints between two values
+function range(start, end) {
+    let range_array = [];
+    for (let i = start; i < end; i++) {
+        range_array.push(i);
     }
-    // If there isn't a tree at that location
-    catch (TypeError) {
-        // Try to find a nearby tree to ignite
-        const closest_tree = get_closest_tree(target_row, target_col, 10);
-        // If a tree was found within the search_distance, ignite it
-        if (closest_tree) {
-            closest_tree.ignite();
-        }
-    }
-}
-
-// TODO: Implement this
-// Return the closest tree to a coordinate within a specified search distance
-function get_closest_tree(row, col, search_distance) {
-
+    return range_array;
 }
 
 function draw() {
