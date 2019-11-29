@@ -167,14 +167,6 @@ class World {
         this.trees.forEach(function (tree) {
             // Burning trees
             if (tree.burning) {
-                let neighbour_trees = tree.world.get_tree_neighbours(tree.row, tree.col);
-                // Catch all neighbour trees on fire
-                neighbour_trees.forEach(function (neighbour) {
-                    if (!neighbour.resists_fire()) {
-                        neighbour.ignite();
-                    }
-                })
-
                 // Tree will burn for 1 round without dying
                 if (tree.burn_rounds > 1) {
                     tree.die();
@@ -185,14 +177,26 @@ class World {
             }
             // Not burning trees
             else {
-                tree.grow();
-                tree.get_older();
-                tree.release_seeds();
-                // Chance for tree to randomly ignite (fire resistance ignored)
-                if (tree.randomly_ignites()) {
+                let neighbour_trees = tree.world.get_tree_neighbours(tree.row, tree.col);
+                let burning_neighbours = 0;
+                neighbour_trees.forEach(function (neighbour, i, ) {
+                    if (neighbour.burning) {
+                        burning_neighbours += 1;
+                    }
+                })
+                // Ignite from burning neighbours
+                if (burning_neighbours && !tree.resists_fire()) {
                     tree.ignite();
                 }
-
+                // Chance for tree to randomly ignite (fire resistance ignored)
+                else if (tree.randomly_ignites()) {
+                    tree.ignite();
+                }
+                else {
+                    tree.grow();
+                    tree.get_older();
+                    tree.release_seeds();
+                }
             }
         })
     }
