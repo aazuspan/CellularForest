@@ -1,15 +1,21 @@
-const rows = 320;
-const cols = 400;
 // Size of each grid cell in pixels
 const grid_size = 10;
 
+const DEBUG_MODE = false;
+
 const world = generate_world();
+
 
 // Create and populate the world grid based on window size
 function generate_world() {
     // Default world parameters
-    const starting_density = 0.001;
-    const ignition_rate = 0.0000001;
+    let starting_density = 0.001;
+    let ignition_rate = 0.000001;
+
+    if (DEBUG_MODE) {
+        starting_density = 1;
+        ignition_rate = 0;
+    }
 
     // Get current window size
     const width = window.innerWidth;
@@ -45,7 +51,11 @@ function range(start, end, increment = 1) {
 }
 
 function draw() {
+    noStroke();
     frameRate(60);
+    if (DEBUG_MODE) {
+        console.log(frameRate());
+    }
     // Dirt
     background(50, 30, 0);
 
@@ -62,7 +72,19 @@ function draw() {
             fill(tree.color_variation, 50 + tree.height - tree.color_variation, 50 - tree.color_variation);
         }
         polygon(tree.col * grid_size, tree.row * grid_size, Math.sqrt(tree.age / 6), 6);
-    })
+    });
+    // Draw an outline around the tree at the mouse position
+    draw_hover_tree();
+}
+
+// Draw an outline around the tree at the mouse position
+function draw_hover_tree() {
+    let hover_tree = world.get_closest_tree(Math.ceil(mouseY / grid_size), Math.ceil(mouseX / grid_size), 1);
+    if (hover_tree) {
+        stroke(255, 0, 0);
+        fill(255, 0, 0, 100);
+        polygon(hover_tree.col * grid_size, hover_tree.row * grid_size, Math.sqrt(hover_tree.age / 6), 6);
+    }
 }
 
 function polygon(x, y, radius, npoints) {
