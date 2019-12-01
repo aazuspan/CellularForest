@@ -63,28 +63,35 @@ function draw() {
 
     // Slice to create a copy, reverse so that young trees are drawn underneath old trees
     world.trees.slice().reverse().forEach(function (tree) {
-        // Trees
-        if (tree.burning) {
-            fill(255 - 55 * tree.burn_rounds, 200 - 55 * tree.burn_rounds, 0);
-        }
-        // Non burning trees
-        else {
-            fill(tree.color_variation, 50 + tree.height - tree.color_variation, 50 - tree.color_variation);
-        }
-        polygon(tree.col * grid_size, tree.row * grid_size, Math.sqrt(tree.age / 6), 6);
+        draw_tree(tree);
     });
-    // Draw an outline around the tree at the mouse position
-    draw_hover_tree();
+
+    // Find the tree closest to the mouse position
+    let mouse_tree = world.get_closest_tree(Math.ceil(mouseY / grid_size), Math.ceil(mouseX / grid_size), 1);
+    // If there was a tree found within the search distance of the mouse, draw an outline around that tree
+    if (mouse_tree) {
+        draw_tree_outline(mouse_tree);
+    }
+}
+
+// Draw a polygon for a tree based on whether it is burning or not
+function draw_tree(tree) {
+    // Trees
+    if (tree.burning) {
+        fill(255 - 55 * tree.burn_rounds, 200 - 55 * tree.burn_rounds, 0);
+    }
+    // Non burning trees
+    else {
+        fill(tree.color_variation, 50 + tree.height - tree.color_variation, 50 - tree.color_variation);
+    }
+    polygon(tree.col * grid_size, tree.row * grid_size, Math.sqrt(tree.age / 6), 6);
 }
 
 // Draw an outline around the tree at the mouse position
-function draw_hover_tree() {
-    let hover_tree = world.get_closest_tree(Math.ceil(mouseY / grid_size), Math.ceil(mouseX / grid_size), 1);
-    if (hover_tree) {
-        stroke(255, 0, 0);
-        fill(255, 0, 0, 100);
-        polygon(hover_tree.col * grid_size, hover_tree.row * grid_size, Math.sqrt(hover_tree.age / 6), 6);
-    }
+function draw_tree_outline(tree) {
+    stroke(255, 0, 0);
+    fill(255, 0, 0, 100);
+    polygon(tree.col * grid_size, tree.row * grid_size, Math.sqrt(tree.age / 6), 6);
 }
 
 function polygon(x, y, radius, npoints) {
