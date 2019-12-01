@@ -93,9 +93,12 @@ function draw_frame() {
 
     // Find the tree closest to the mouse position
     let mouse_tree = world.get_closest_tree(Math.ceil(mouseY / grid_size), Math.ceil(mouseX / grid_size), 1);
-    // If there was a tree found within the search distance of the mouse, draw an outline around that tree
+    // If there was a tree found within the search distance of the mouse
     if (mouse_tree) {
+        // Draw an outline around that tree
         draw_tree_outline(mouse_tree);
+        // Update the tree info dropdown with that tree's details
+        update_tree_details(mouse_tree);
     }
 }
 
@@ -117,6 +120,13 @@ function draw_tree_outline(tree) {
     stroke(255, 0, 0);
     fill(255, 0, 0, 100);
     polygon(tree.col * grid_size, tree.row * grid_size, Math.sqrt(tree.age / 6), 6);
+}
+
+// Update the tree info dropdown forms with the details of a tree
+function update_tree_details(tree) {
+    document.getElementById("info-age").value = tree.age;
+    document.getElementById("info-height").value = tree.height;
+    document.getElementById("info-resistance").value = tree.fire_resistance.toFixed(2);
 }
 
 function polygon(x, y, radius, npoints) {

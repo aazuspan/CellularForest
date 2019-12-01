@@ -42,20 +42,40 @@
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
         </li>
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-            Dropdown
+            Info
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
+
+          <!-- Tree info dropdown -->
+          <div class="dropdown-menu bg-secondary p-3" style="width: 350px;">
+            <div class="form-group row mb-1">
+              <label for="info-id" class="col-sm-5 col-form-label text-light">Tree ID</label>
+              <div class="col-sm-7">
+                <input id="info-id" class="form-control mr-sm-2" placeholder="Tree ID" disabled>
+              </div>
+            </div>
+            <div class="form-group row mb-1">
+              <label for="info-age" class="col-sm-5 col-form-label text-light">Age</label>
+              <div class="col-sm-7">
+                <input id="info-age" class="form-control mr-sm-2" placeholder="Age" disabled>
+              </div>
+            </div>
+            <div class="form-group row mb-1">
+              <label for="info-height" class="col-sm-5 col-form-label text-light">Height</label>
+              <div class="col-sm-7">
+                <input id="info-height" class="form-control mr-sm-2" placeholder="Height" disabled>
+              </div>
+            </div>
+            <div class="form-group row mb-1">
+              <label for="info-resistance" class="col-sm-5 col-form-label text-light">Fire Resistance</label>
+              <div class="col-sm-7">
+                <input id="info-resistance" class="form-control mr-sm-2" placeholder="Fire Resistance" disabled>
+              </div>
+            </div>
           </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
         </li>
       </ul>
 
