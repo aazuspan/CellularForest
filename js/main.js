@@ -3,13 +3,14 @@ const grid_size = 10;
 
 const DEBUG_MODE = false;
 
-const world = generate_world();
+let world = generate_world();
 
+let playing = true;
 
 // Create and populate the world grid based on window size
 function generate_world() {
     // Default world parameters
-    let starting_density = 0.001;
+    let starting_density = 0.01;
     let ignition_rate = 0.000001;
 
     if (DEBUG_MODE) {
@@ -53,13 +54,21 @@ function range(start, end, increment = 1) {
 function draw() {
     noStroke();
     frameRate(60);
+
     if (DEBUG_MODE) {
         console.log(frameRate());
     }
+
+    if (playing) {
+        world.step(frameCount);
+    }
+    draw_frame();
+}
+
+// Draw background and all trees
+function draw_frame() {
     // Dirt
     background(50, 30, 0);
-
-    world.step(frameCount);
 
     // Slice to create a copy, reverse so that young trees are drawn underneath old trees
     world.trees.slice().reverse().forEach(function (tree) {
@@ -103,4 +112,33 @@ function polygon(x, y, radius, npoints) {
         vertex(sx, sy);
     }
     endShape(CLOSE);
+}
+
+
+// Start playback if paused
+function play() {
+    playing = true;
+}
+
+// Pause playback
+function pause() {
+    playing = false;
+}
+
+// TODO: Implement this (I think the only way will be to store trees from previous frames and load them)
+function prev_frame() {
+    pause();
+}
+
+// Draw the next frame of the simulation
+function next_frame() {
+    pause();
+    world.step();
+    draw_frame();
+}
+
+// Reset the world
+function reset() {
+    world = generate_world();
+    play();
 }
