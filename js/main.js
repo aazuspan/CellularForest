@@ -7,8 +7,24 @@ let world = generate_world();
 
 let playing = true;
 
+// Return either the value of the random seed form or the current date if empty
+function get_random_seed() {
+    // Get random seed value from input form
+    let rand_seed = document.getElementById("random-seed-form").value;
+
+    // If no random seed is given, use the current time
+    if (!rand_seed) {
+        rand_seed = Date.now();
+    }
+
+    return rand_seed;
+}
+
 // Create and populate the world grid based on window size
 function generate_world() {
+    const rand_seed = get_random_seed();
+    Math.seedrandom(rand_seed);
+
     // Default world parameters
     let starting_density = 0.01;
     let ignition_rate = 0.000001;

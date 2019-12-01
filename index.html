@@ -11,10 +11,9 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="css/main.css" />
 
+  <script src="js/seedrandom.min.js"></script>
   <script src="js/p5.min.js"></script>
-  <script src="js/World.js"></script>
-  <script src="js/Tree.js"></script>
-  <script src="js/main.js"></script>
+
   <script src="https://kit.fontawesome.com/4a17c01cce.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -61,7 +60,7 @@
       </ul>
 
       <!-- Playback control buttons -->
-      <div class="btn-group" role="group" aria-label="Basic example">
+      <div class="btn-group mr-5" role="group" aria-label="Basic example">
         <button id="prev-button" type="button" class="btn btn-secondary bg-dark" title='Previous frame'><i
             class='fa fa-chevron-left'></i></button>
         <button id="next-button" type="button" class="btn btn-secondary bg-dark" title='Next frame'><i
@@ -95,15 +94,22 @@
             </div>
           </div>
         </div>
-        <script src='js/play_controls.js'></script>
+
       </div>
 
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <input id="random-seed-form" class="form-control mr-sm-2" placeholder="Random seed..." aria-label="Random seed">
+        <button id="random-seed-reset" class="btn btn-secondary bg-dark" type='reset' title='Reset seed'><i
+            class='fa fa-random'></i> </button>
       </form>
     </div>
   </nav>
+
+
+  <script src="js/World.js"></script>
+  <script src="js/Tree.js"></script>
+  <script src="js/main.js"></script>
+  <script src='js/play_controls.js'></script>
 </body>
 
 </html>
