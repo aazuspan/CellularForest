@@ -10,19 +10,23 @@ class Tree {
         this.age = age;
         // Current height
         this.height = this.age * 2;
+        // Max variation in max height between trees
+        this.height_variation = 30;
         // Max height in meters
-        this.max_height = 100;
-        // Meters of height growth per 60 frames
-        this.growth_rate = 2;
+        this.max_height = 100 + Math.random() * this.height_variation;
+        // Random chance for tree to die every round
+        this.mortality_chance = 0.00001
+        // Meters of height growth per frame
+        this.growth_rate = 0.5;
         // Meters of seed dispersal per meter of height
         this.seed_range_per_height = 0.1
         // Minimum age in years before reproducing
         this.reproductive_maturity = 10;
         // Probability that tree won't catch fire (increases with age)
-        this.fire_resistance = this.age * 0.01;
-        this.max_fire_resistance = 0.9;
+        this.fire_resistance = (this.age + 1) * 0.01;
+        this.max_fire_resistance = 0.8;
         // Percent that fire resistance increases every year of age
-        this.fire_resistance_increase = 0.01;
+        this.fire_resistance_increase = 0.001;
         // Probability of seed successfully creating a new tree
         this.seed_viability_rate = 0.01;
         // Random color variation to make visualization more interesting
@@ -70,7 +74,7 @@ class Tree {
     get_older() {
         this.age += 1;
         if (this.fire_resistance < this.max_fire_resistance) {
-            this.fire_resistance *= (1 + this.fire_resistance_increase);
+            this.fire_resistance += this.fire_resistance_increase;
         }
     }
 
@@ -95,6 +99,15 @@ class Tree {
     ignite() {
         this.burning = true;
     }
+
+    // Chance for tree to randomly die
+    randomly_dies() {
+        if (Math.random() < this.mortality_chance) {
+            return true;
+        }
+        return false;
+    }
+
 
     // Tree ceases to exist
     die() {
