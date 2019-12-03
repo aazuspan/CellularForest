@@ -44,6 +44,7 @@ function generate_world() {
     const cols = Math.ceil(width / grid_size);
 
     const new_world = new World(rows, cols, starting_density, ignition_rate)
+
     new_world.populate();
 
     return new_world
@@ -52,6 +53,8 @@ function generate_world() {
 
 function setup() {
     const canv = createCanvas(world.cols * grid_size, world.rows * grid_size);
+    // Put the canvas in the container div
+    canv.parent("container");
     // Create event listener for clicking to start a fire
     canv.mouseClicked(world.ignite_at_mouse);
     noStroke();
@@ -167,4 +170,37 @@ function next_frame() {
 function reset() {
     world = generate_world();
     play();
+}
+
+// target elements with the "draggable" class
+interact('.draggable')
+    .draggable({
+        // enable inertial throwing
+        inertia: true,
+        // keep the element within the area of it's parent
+        modifiers: [
+            interact.modifiers.restrictRect({
+                restriction: 'parent',
+                endOnly: true
+            })
+        ],
+
+        // call this function on every dragmove event
+        onmove: dragMoveListener,
+    })
+
+function dragMoveListener(event) {
+    var target = event.target
+    // keep the dragged position in the data-x/data-y attributes
+    var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+    var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+    // translate the element
+    target.style.webkitTransform =
+        target.style.transform =
+        'translate(' + x + 'px, ' + y + 'px)'
+
+    // update the posiion attributes
+    target.setAttribute('data-x', x)
+    target.setAttribute('data-y', y)
 }

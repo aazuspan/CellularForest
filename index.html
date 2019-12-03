@@ -24,9 +24,11 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
 </head>
 
 <body>
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">CellularForest</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -41,41 +43,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
-        </li>
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Info
-          </a>
-
-          <!-- Tree info dropdown -->
-          <div class="dropdown-menu bg-secondary p-3" style="width: 350px;">
-            <div class="form-group row mb-1">
-              <label for="info-id" class="col-sm-5 col-form-label text-light">Tree ID</label>
-              <div class="col-sm-7">
-                <input id="info-id" class="form-control mr-sm-2" placeholder="Tree ID" disabled>
-              </div>
-            </div>
-            <div class="form-group row mb-1">
-              <label for="info-age" class="col-sm-5 col-form-label text-light">Age</label>
-              <div class="col-sm-7">
-                <input id="info-age" class="form-control mr-sm-2" placeholder="Age" disabled>
-              </div>
-            </div>
-            <div class="form-group row mb-1">
-              <label for="info-height" class="col-sm-5 col-form-label text-light">Height</label>
-              <div class="col-sm-7">
-                <input id="info-height" class="form-control mr-sm-2" placeholder="Height" disabled>
-              </div>
-            </div>
-            <div class="form-group row mb-1">
-              <label for="info-resistance" class="col-sm-5 col-form-label text-light">Fire Resistance</label>
-              <div class="col-sm-7">
-                <input id="info-resistance" class="form-control mr-sm-2" placeholder="Fire Resistance" disabled>
-              </div>
-            </div>
-          </div>
         </li>
       </ul>
 
@@ -125,6 +92,37 @@
     </div>
   </nav>
 
+  <!-- Main content container -->
+  <div id="container">
+    <!-- Draggable tree info popup -->
+    <div id="tree-info" class="draggable">
+      <h5>Tree Information</h5>
+      <div class="form-group row mb-1">
+        <label for="info-id" class="col-sm-5 col-form-label text-light">Tree ID</label>
+        <div class="col-sm-7">
+          <input id="info-id" class="form-control mr-sm-2" placeholder="Tree ID" disabled>
+        </div>
+      </div>
+      <div class="form-group row mb-1">
+        <label for="info-age" class="col-sm-5 col-form-label text-light">Age</label>
+        <div class="col-sm-7">
+          <input id="info-age" class="form-control mr-sm-2" placeholder="Age" disabled>
+        </div>
+      </div>
+      <div class="form-group row mb-1">
+        <label for="info-height" class="col-sm-5 col-form-label text-light">Height</label>
+        <div class="col-sm-7">
+          <input id="info-height" class="form-control mr-sm-2" placeholder="Height" disabled>
+        </div>
+      </div>
+      <div class="form-group row mb-1">
+        <label for="info-resistance" class="col-sm-5 col-form-label text-light">Fire Resistance</label>
+        <div class="col-sm-7">
+          <input id="info-resistance" class="form-control mr-sm-2" placeholder="Fire Resistance" disabled>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="js/World.js"></script>
   <script src="js/Tree.js"></script>

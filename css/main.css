@@ -1,0 +1,16 @@
+body, html {
+    background-color: black;
+}
+
+
+#tree-info {
+    position: absolute;
+    margin: 10%;
+    background-color: rgba(50, 50, 50, 0.9);
+    color: white;
+    padding: 1%;
+    touch-action: none;
+    user-select: none;
+    -webkit-transform: translate(0px, 0px);
+            transform: translate(0px, 0px);
+  }
