@@ -9,3 +9,5 @@ document.getElementById("reset-check-button").addEventListener("click", pause);
 document.getElementById("reset-confirm-button").addEventListener("click", reset);
 // If cancelled, start playback again
 document.getElementById("reset-cancel-button").addEventListener("click", play);
+
+document.getElementById("ignite-button").addEventListener("click", toggle_ignition);

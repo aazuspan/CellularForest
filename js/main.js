@@ -5,7 +5,13 @@ const DEBUG_MODE = false;
 
 let world = generate_world();
 
+// P5 Canvas
+let canv;
+
+let click_to_ignite_active = false;
+
 let playing = true;
+
 
 // Return either the value of the random seed form or the current date if empty
 function get_random_seed() {
@@ -52,11 +58,9 @@ function generate_world() {
 
 
 function setup() {
-    const canv = createCanvas(world.cols * grid_size, world.rows * grid_size);
+    canv = createCanvas(world.cols * grid_size, world.rows * grid_size);
     // Put the canvas in the container div
     canv.parent("container");
-    // Create event listener for clicking to start a fire
-    canv.mouseClicked(world.ignite_at_mouse);
     noStroke();
 }
 
@@ -98,8 +102,11 @@ function draw_frame() {
     let mouse_tree = world.get_closest_tree(Math.ceil(mouseY / grid_size), Math.ceil(mouseX / grid_size), 1);
     // If there was a tree found within the search distance of the mouse
     if (mouse_tree) {
-        // Draw an outline around that tree
-        draw_tree_outline(mouse_tree);
+        // Only draw tree outlines if click-to-ignite is on
+        if (click_to_ignite_active) {
+            draw_tree_outline(mouse_tree);
+        }
+
         // Update the tree info dropdown with that tree's details
         update_tree_details(mouse_tree);
     }
@@ -141,6 +148,19 @@ function polygon(x, y, radius, npoints) {
         vertex(sx, sy);
     }
     endShape(CLOSE);
+}
+
+// Toggle the click to ignite mode and add or remove listeners
+function toggle_ignition() {
+    if (click_to_ignite_active) {
+        canv.mouseClicked(false);
+    }
+    else {
+        // Create event listener for clicking to start a fire
+        canv.mouseClicked(world.ignite_at_mouse);
+    }
+
+    click_to_ignite_active = !click_to_ignite_active;
 }
 
 
