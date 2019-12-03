@@ -11,8 +11,8 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="css/main.css" />
 
-  <script src="js/seedrandom.min.js"></script>
-  <script src="js/p5.min.js"></script>
+  <script src="js/include/seedrandom.min.js"></script>
+  <script src="js/include/p5.min.js"></script>
 
   <script src="https://kit.fontawesome.com/4a17c01cce.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -45,6 +45,18 @@
           <a class="nav-link" href="#">About</a>
         </li>
       </ul>
+
+
+      <!-- Current year form -->
+      <form class="form-inline my-2 my-lg-0">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-secondary text-light">Year</div>
+          </div>
+          <input id="year-form" class="form-control mr-3 bg-dark text-light" placeholder="Year..."
+            aria-label="Current year" disabled>
+        </div>
+      </form>
 
       <!-- TODO: Make these toggle buttons display their state -->
       <!-- Toggle tree info window -->
@@ -93,6 +105,7 @@
 
       </div>
 
+      <!-- Random seed form -->
       <form class="form-inline my-2 my-lg-0">
         <input id="random-seed-form" class="form-control mr-sm-2" placeholder="Random seed..." aria-label="Random seed">
         <button id="random-seed-reset" class="btn btn-secondary bg-dark" type='reset' title='Reset seed'><i

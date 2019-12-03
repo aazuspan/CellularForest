@@ -18,19 +18,6 @@ let click_to_ignite_active = false;
 let playing = true;
 
 
-// Return either the value of the random seed form or the current date if empty
-function get_random_seed() {
-    // Get random seed value from input form
-    let rand_seed = document.getElementById("random-seed-form").value;
-
-    // If no random seed is given, use the current time
-    if (!rand_seed) {
-        rand_seed = Date.now();
-    }
-
-    return rand_seed;
-}
-
 // Create and populate the world grid based on window size
 function generate_world() {
     const rand_seed = get_random_seed();
@@ -61,7 +48,6 @@ function generate_world() {
     return new_world
 }
 
-
 function setup() {
     canv = createCanvas(world.cols * grid_size, world.rows * grid_size);
     // Put the canvas in the container div
@@ -71,18 +57,7 @@ function setup() {
     toggle_info_window();
 }
 
-
-// Python style range function that returns list of ints between two values
-function range(start, end, increment = 1) {
-    let range_array = [];
-    for (let i = start; i < end; i += increment) {
-        range_array.push(i);
-    }
-    return range_array;
-}
-
 function draw() {
-    console.log(cache_position);
     noStroke();
     frameRate(60);
 
@@ -106,6 +81,9 @@ function draw() {
 
     // Draw the current trees (cached or live)
     draw_frame(draw_trees);
+
+    let year_form = document.getElementById("year-form");
+    year_form.value = world.year - cache_position;
 }
 
 // Draw background and all trees
@@ -162,10 +140,11 @@ function draw_tree_outline(tree) {
 // Update the tree info dropdown forms with the details of a tree
 function update_tree_details(tree) {
     document.getElementById("info-age").value = tree.age;
-    document.getElementById("info-height").value = tree.height;
+    document.getElementById("info-height").value = tree.height.toFixed(2);
     document.getElementById("info-resistance").value = tree.fire_resistance.toFixed(2);
 }
 
+// Create a polygon shape with n sides
 function polygon(x, y, radius, npoints) {
     let angle = TWO_PI / npoints;
     beginShape();
@@ -177,9 +156,30 @@ function polygon(x, y, radius, npoints) {
     endShape(CLOSE);
 }
 
-
 // Load trees to draw from the cache relative to the current cache position
 function load_cache(position) {
     cache_position += position;
     draw_trees = world.tree_cache[cache_position];
+}
+
+// Python style range function that returns list of ints between two values
+function range(start, end, increment = 1) {
+    let range_array = [];
+    for (let i = start; i < end; i += increment) {
+        range_array.push(i);
+    }
+    return range_array;
+}
+
+// Return either the value of the random seed form or the current date if empty
+function get_random_seed() {
+    // Get random seed value from input form
+    let rand_seed = document.getElementById("random-seed-form").value;
+
+    // If no random seed is given, use the current time
+    if (!rand_seed) {
+        rand_seed = Date.now();
+    }
+
+    return rand_seed;
 }
