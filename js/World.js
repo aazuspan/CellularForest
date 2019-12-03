@@ -6,6 +6,8 @@ class World {
         this.starting_density = starting_density;
         // Probability of a tree randomly igniting
         this.ignition_rate = ignition_rate;
+        // Random chance for tree to sprout at a random point every frame
+        this.sprout_rate = 0.001;
         // 2D array of cells within the world
         this.array = this.build();
         // List of cells in the world (uninfected or infected)
@@ -52,12 +54,18 @@ class World {
             available_coords.splice(random_coord_index, 1);
             // Choose a random starting age for the tree
             let random_age = Math.floor(Math.random() * 50);
-            // Create the tree
-            let new_tree = new Tree(this, random_coord[0], random_coord[1], random_age);
-            // Place the tree in the world
-            this.array[random_coord[0]][random_coord[1]] = new_tree;
-            this.trees.push(new_tree);
+            // Add the new tree to the world
+            this.add_tree(random_coord[0], random_coord[1], random_age);
         }
+    }
+
+    // Add a new tree to the world
+    add_tree(row, col, age = 0) {
+        // Create the tree
+        let new_tree = new Tree(this, row, col, age);
+        // Place the tree in the world
+        this.array[row][col] = new_tree;
+        this.trees.push(new_tree);
     }
 
     // Check if a given coordinate is within the array
@@ -192,13 +200,25 @@ class World {
                 else if (tree.randomly_ignites()) {
                     tree.ignite();
                 }
+                else if (tree.randomly_dies()) {
+                    tree.die();
+                }
                 else {
                     tree.grow();
                     tree.get_older();
                     tree.release_seeds();
                 }
             }
-        })
+        });
+
+        // Random chance to sprout new tree
+        if (Math.random() < this.sprout_rate) {
+            let rand_row = Math.floor(Math.random() * this.rows);
+            let rand_col = Math.floor(Math.random() * this.cols);
+            if (!this.array[rand_row][rand_col]) {
+                this.add_tree(rand_row, rand_col);
+            }
+        }
     }
 }
 
