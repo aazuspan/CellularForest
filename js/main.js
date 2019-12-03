@@ -82,6 +82,7 @@ function range(start, end, increment = 1) {
 }
 
 function draw() {
+    console.log(cache_position);
     noStroke();
     frameRate(60);
 
@@ -90,9 +91,17 @@ function draw() {
     }
 
     if (playing) {
-        world.step(frameCount);
-        // If playing live, draw the live trees
-        draw_trees = world.trees;
+        // If in the cache instead of live
+        if (cache_position) {
+            // Load the next cache trees
+            load_cache(-1);
+        }
+        // If playing live
+        else {
+            world.step(frameCount);
+            // If playing live, draw the live trees
+            draw_trees = world.trees;
+        }
     }
 
     // Draw the current trees (cached or live)
@@ -166,4 +175,11 @@ function polygon(x, y, radius, npoints) {
         vertex(sx, sy);
     }
     endShape(CLOSE);
+}
+
+
+// Load trees to draw from the cache relative to the current cache position
+function load_cache(position) {
+    cache_position += position;
+    draw_trees = world.tree_cache[cache_position];
 }

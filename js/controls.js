@@ -36,13 +36,10 @@ function pause() {
 // Load trees from the previous tree cache to draw
 function prev_frame() {
     pause();
-    if (cache_position < world.max_cache_size) {
+    if (cache_position < world.tree_cache.length - 1) {
         // Move back in the cache of tree states
-        cache_position += 1;
+        load_cache(1);
     }
-
-    // Set this tree state to draw
-    draw_trees = world.tree_cache[cache_position];
 }
 
 // Draw the next frame of the simulation, either live or from the cache
@@ -52,9 +49,7 @@ function next_frame() {
     // If the user is moving through the cache instead of playing live
     if (cache_position) {
         // Move forward in the cache of tree states
-        cache_position -= 1
-        // Draw that tree state
-        draw_trees = world.tree_cache[cache_position];
+        load_cache(-1);
     }
 
     // If the user is simulating live
