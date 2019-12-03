@@ -102,10 +102,8 @@ function draw_frame() {
     let mouse_tree = world.get_closest_tree(Math.ceil(mouseY / grid_size), Math.ceil(mouseX / grid_size), 1);
     // If there was a tree found within the search distance of the mouse
     if (mouse_tree) {
-        // Only draw tree outlines if click-to-ignite is on
-        if (click_to_ignite_active) {
-            draw_tree_outline(mouse_tree);
-        }
+        // Draw an outline around the tree at the mouse position
+        draw_tree_outline(mouse_tree);
 
         // Update the tree info dropdown with that tree's details
         update_tree_details(mouse_tree);
@@ -127,8 +125,17 @@ function draw_tree(tree) {
 
 // Draw an outline around the tree at the mouse position
 function draw_tree_outline(tree) {
-    stroke(255, 0, 0);
-    fill(255, 0, 0, 100);
+    if (click_to_ignite_active) {
+        // Red outline
+        stroke(255, 0, 0);
+        // Reddish fill
+        fill(255, 0, 0, 100);
+    }
+    else {
+        // White
+        stroke(255);
+    }
+
     polygon(tree.col * grid_size, tree.row * grid_size, Math.sqrt(tree.age / 6), 6);
 }
 
@@ -163,6 +170,17 @@ function toggle_ignition() {
     click_to_ignite_active = !click_to_ignite_active;
 }
 
+// Toggle display of the tree info window
+function toggle_info_window() {
+    const window = document.getElementById("tree-info-window");
+
+    if (window.hidden) {
+        window.hidden = false;
+    }
+    else {
+        window.hidden = true;
+    }
+}
 
 // Start playback if paused
 function play() {

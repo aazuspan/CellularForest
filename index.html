@@ -46,9 +46,13 @@
         </li>
       </ul>
 
+      <!-- Toggle tree info window -->
+      <button id="info-button" type="button" data-toggle="button" class="btn btn-secondary bg-dark mr-3"
+        title='Tree info'><i class='fa fa-info'></i></button>
+
       <!-- Toggle click-to-ignite -->
-      <button id="ignite-button" type="button" class="btn btn-secondary bg-dark mr-5" title='Ignite trees'><i
-          class='fa fa-fire'></i></button>
+      <button id="ignite-button" type="button" data-toggle="button" class="btn btn-secondary bg-dark mr-3"
+        title='Ignite trees'><i class='fa fa-fire'></i></button>
 
       <!-- Playback control buttons -->
       <div class="btn-group mr-5" role="group" aria-label="Basic example">
@@ -99,7 +103,7 @@
   <!-- Main content container -->
   <div id="container">
     <!-- Draggable tree info popup -->
-    <div id="tree-info" class="draggable">
+    <div id="tree-info-window" class="draggable">
       <h5>Tree Information</h5>
       <div class="form-group row mb-1">
         <label for="info-id" class="col-sm-5 col-form-label text-light">Tree ID</label>
