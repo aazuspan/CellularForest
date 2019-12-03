@@ -12,6 +12,11 @@ class World {
         this.array = this.build();
         // List of cells in the world (uninfected or infected)
         this.trees = [];
+
+        // Cache of previous tree lists, used to visit previous frames
+        this.tree_cache = [];
+        // Number of previous frames that can be stored
+        this.max_cache_size = 100;
     }
 
     // Create an empty 2D array
@@ -172,6 +177,19 @@ class World {
 
     // Simulate a period of time in the world
     step(frameCount) {
+        // List of copies of all trees in this frame
+        let frame_cache = [];
+
+        // Random chance to sprout new tree
+        if (Math.random() < this.sprout_rate) {
+            let rand_row = Math.floor(Math.random() * this.rows);
+            let rand_col = Math.floor(Math.random() * this.cols);
+            if (!this.array[rand_row][rand_col]) {
+                this.add_tree(rand_row, rand_col);
+            }
+        }
+
+        // Simulate all trees
         this.trees.forEach(function (tree) {
             // Burning trees
             if (tree.burning) {
@@ -209,15 +227,15 @@ class World {
                     tree.release_seeds();
                 }
             }
+            // Create a shallow copy of the tree and add it to the cache
+            frame_cache.push(Object.assign({}, tree));
         });
 
-        // Random chance to sprout new tree
-        if (Math.random() < this.sprout_rate) {
-            let rand_row = Math.floor(Math.random() * this.rows);
-            let rand_col = Math.floor(Math.random() * this.cols);
-            if (!this.array[rand_row][rand_col]) {
-                this.add_tree(rand_row, rand_col);
-            }
+        // Add this list of tree states at the beginning of the cache
+        this.tree_cache.unshift(frame_cache);
+        // Remove old cached frames from the end when the max size is reached
+        if (this.tree_cache.length > this.max_cache_size) {
+            this.tree_cache.pop();
         }
     }
 }

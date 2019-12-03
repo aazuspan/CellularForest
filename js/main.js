@@ -8,6 +8,11 @@ let world = generate_world();
 // P5 Canvas
 let canv;
 
+// Currently displayed frame (0 = current)
+let cache_position = 0;
+// List of trees to draw (used to draw cached trees or current trees)
+let draw_trees = [];
+
 let click_to_ignite_active = false;
 
 let playing = true;
@@ -62,6 +67,8 @@ function setup() {
     // Put the canvas in the container div
     canv.parent("container");
     noStroke();
+    // Default to info window off
+    toggle_info_window();
 }
 
 
@@ -84,17 +91,21 @@ function draw() {
 
     if (playing) {
         world.step(frameCount);
+        // If playing live, draw the live trees
+        draw_trees = world.trees;
     }
-    draw_frame();
+
+    // Draw the current trees (cached or live)
+    draw_frame(draw_trees);
 }
 
 // Draw background and all trees
-function draw_frame() {
+function draw_frame(trees) {
     // Dirt
     background(50, 30, 0);
 
     // Slice to create a copy, reverse so that young trees are drawn underneath old trees
-    world.trees.slice().reverse().forEach(function (tree) {
+    trees.slice().reverse().forEach(function (tree) {
         draw_tree(tree);
     });
 
@@ -192,16 +203,35 @@ function pause() {
     playing = false;
 }
 
-// TODO: Implement this (I think the only way will be to store trees from previous frames and load them)
+// Load trees from the previous tree cache to draw
 function prev_frame() {
     pause();
+    if (cache_position < world.max_cache_size) {
+        // Move back in the cache of tree states
+        cache_position += 1;
+    }
+
+    // Set this tree state to draw
+    draw_trees = world.tree_cache[cache_position];
 }
 
-// Draw the next frame of the simulation
+// Draw the next frame of the simulation, either live or from the cache
 function next_frame() {
     pause();
-    world.step();
-    draw_frame();
+
+    // If the user is moving through the cache instead of playing live
+    if (cache_position) {
+        // Move forward in the cache of tree states
+        cache_position -= 1
+        // Draw that tree state
+        draw_trees = world.tree_cache[cache_position];
+    }
+
+    // If the user is simulating live
+    else {
+        world.step();
+        draw_trees = world.trees;
+    }
 }
 
 // Reset the world
@@ -242,3 +272,4 @@ function dragMoveListener(event) {
     target.setAttribute('data-x', x)
     target.setAttribute('data-y', y)
 }
+
