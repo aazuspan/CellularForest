@@ -82,8 +82,18 @@ function draw() {
     // Draw the current trees (cached or live)
     draw_frame(draw_trees);
 
+    // Update the year display
     let year_form = document.getElementById("year-form");
     year_form.value = world.year - cache_position;
+
+    // Update parameters from sliders
+    update_parameters();
+}
+
+// Update parameters based on slider values
+function update_parameters() {
+    world.ignition_rate = ignition_rate.element.value;
+    world.sprout_rate = sprout_rate.element.value;
 }
 
 // Draw background and all trees
