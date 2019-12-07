@@ -92,8 +92,13 @@ function draw() {
 
 // Update parameters based on slider values
 function update_parameters() {
-    world.ignition_rate = ignition_rate.element.value;
-    world.sprout_rate = sprout_rate.element.value;
+    world.ignition_rate = ignition_rate_slider.element.value;
+    world.sprout_rate = sprout_rate_slider.element.value;
+
+    seed_viability_rate = Number(seed_viability_rate_slider.element.value);
+    growth_rate = Number(growth_rate_slider.element.value);
+    reproductive_maturity = Number(reproductive_maturity_slider.element.value);
+    max_fire_resistance = Number(max_fire_resistance_slider.element.value);
 }
 
 // Draw background and all trees

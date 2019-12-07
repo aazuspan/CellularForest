@@ -1,3 +1,18 @@
+// Random chance for tree to die every round
+let mortality_chance = 0.00001
+// Meters of height growth per frame
+let growth_rate = 0.5;
+// Meters of seed dispersal per meter of height
+let seed_range_per_height = 0.1
+// Minimum age in years before reproducing
+let reproductive_maturity = 10;
+let max_fire_resistance = 0.8;
+// Percent that fire resistance increases every year of age
+let fire_resistance_increase = 0.001;
+// Probability of seed successfully creating a new tree
+let seed_viability_rate = 0.01;
+
+
 class Tree {
     constructor(world, row, col, age) {
         this.world = world;
@@ -14,32 +29,18 @@ class Tree {
         this.height_variation = 30;
         // Max height in meters
         this.max_height = 100 + Math.random() * this.height_variation;
-        // Random chance for tree to die every round
-        this.mortality_chance = 0.00001
-        // Meters of height growth per frame
-        this.growth_rate = 0.5;
-        // Meters of seed dispersal per meter of height
-        this.seed_range_per_height = 0.1
-        // Minimum age in years before reproducing
-        this.reproductive_maturity = 10;
         // Probability that tree won't catch fire (increases with age)
         this.fire_resistance = (this.age + 1) * 0.01;
-        this.max_fire_resistance = 0.8;
-        // Percent that fire resistance increases every year of age
-        this.fire_resistance_increase = 0.001;
-        // Probability of seed successfully creating a new tree
-        this.seed_viability_rate = 0.01;
         // Random color variation to make visualization more interesting
         this.color_variation = Math.random() * 50;
-
     }
 
     // Release a seed into a random neighour cell
     release_seeds() {
         // Don't waste time choosing a seed location if it won't be viable
-        if (Math.random() < this.seed_viability_rate) {
+        if (Math.random() < seed_viability_rate) {
             // Calculate seed range based on tree height (plus or minus)
-            const seed_range = Math.ceil(this.seed_range_per_height * this.height);
+            const seed_range = Math.ceil(seed_range_per_height * this.height);
 
             // Choose random offsets based on seed range
             let rand_row_offset = Math.round(Math.random() * -2 * seed_range + seed_range);
@@ -66,15 +67,15 @@ class Tree {
     // Grow in height (every 60 years)
     grow() {
         if (this.height < this.max_height) {
-            this.height += this.growth_rate;
+            this.height += growth_rate;
         }
     }
 
     // Age 1 year (every 60 frames)
     get_older() {
         this.age += 1;
-        if (this.fire_resistance < this.max_fire_resistance) {
-            this.fire_resistance += this.fire_resistance_increase;
+        if (this.fire_resistance < max_fire_resistance) {
+            this.fire_resistance += fire_resistance_increase;
         }
     }
 
@@ -89,7 +90,7 @@ class Tree {
     // Random chance to ignite (if mature)
     randomly_ignites() {
         // Random chance to catch fire
-        if (Math.random() < this.world.ignition_rate && this.age > this.reproductive_maturity) {
+        if (Math.random() < this.world.ignition_rate && this.age > reproductive_maturity) {
             return true;
         }
         return false;
@@ -102,7 +103,7 @@ class Tree {
 
     // Chance for tree to randomly die
     randomly_dies() {
-        if (Math.random() < this.mortality_chance) {
+        if (Math.random() < mortality_chance) {
             return true;
         }
         return false;
