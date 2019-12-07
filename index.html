@@ -52,148 +52,147 @@
           <a class="nav-link" href="#">About</a>
         </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Parameters
-          </a>
-          <form class="dropdown-menu text-light" style="background-color: rgba(50,50,50,0.9);">
-            <!-- Parameter sliders -->
-            <div class="slider-container" style="width: 250px; padding: 10px;">
-              <h6>WORLD PARAMETERS</h6>
-              <!-- Ignition rate -->
-              <div class="slider-group">
-                <label for="ignition_slider" class="text-light">Ignition Rate</label>
-                <div class="btn-group float-right">
-                  <button id="ignition_reset" class="btn btn-sm btn-secondary" title="Reset to default">
-                    <i class="fa fa-refresh" title="Reset to default"></i>
-                  </button>
-                  <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Ignition Rate"
-                    data-trigger="focus"
-                    data-content="Ignition rate determines the probability that a tree will randomly ignite, such as from lightning or human ignition.">
-                    <i class="fa fa-question" title="More info"></i>
-                  </button>
-                </div>
-                <input id="ignition_slider" type="range" class="custom-range">
-              </div>
 
-              <!-- Stand density -->
-              <div class="slider-group">
-                <label for="density_slider" class="text-light">Initial Stand Density</label>
-                <div class="btn-group float-right">
-                  <button id="density_reset" class="btn btn-sm btn-secondary" title="Reset to default">
-                    <i class="fa fa-refresh" title="Reset to default"></i>
-                  </button>
-                  <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Initial Stand Density"
-                    data-trigger="focus"
-                    data-content="Stand density determines the number of trees that will be generated when the world is created. Reset the world to apply changes to this parameter.">
-                    <i class="fa fa-question" title="More info"></i>
-                  </button>
-                </div>
-                <input id="density_slider" type="range" class="custom-range">
-              </div>
-              <div class="dropdown-divider"></div>
-              <h6>TREE PARAMETERS</h6>
+      </ul>
 
-              <!-- Sprout rate -->
-              <div class="slider-group">
-                <label for="sprout_slider" class="text-light">Sprouting Rate</label>
-                <div class="btn-group float-right">
-                  <button id="sprout_reset" class="btn btn-sm btn-secondary" title="Reset to default">
-                    <i class="fa fa-refresh" title="Reset to default"></i>
-                  </button>
-                  <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Sprouting Rate"
-                    data-trigger="focus"
-                    data-content="Sprouting rate determines the likelihood of an empty cell sprouting a new tree.">
-                    <i class="fa fa-question" title="More info"></i>
-                  </button>
-                </div>
-                <input id="sprout_slider" type="range" class="custom-range">
-              </div>
-
-              <!-- Seed viability -->
-              <div class="slider-group">
-                <label for="viability_slider" class="text-light">Seed Viability Rate</label>
-                <div class="btn-group float-right">
-                  <button id="viability_reset" class="btn btn-sm btn-secondary" title="Reset to default">
-                    <i class="fa fa-refresh" title="Reset to default"></i>
-                  </button>
-
-                  <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Seed Viability Rate"
-                    data-trigger="focus"
-                    data-content="Seed viability rate determines the probability that a seed released by a tree will successfully become a new tree.">
-                    <i class="fa fa-question" title="More info"></i>
-                  </button>
-                </div>
-                <input id="viability_slider" type="range" class="custom-range">
-              </div>
-
-              <!-- Growth rate -->
-              <div class="slider-group">
-                <label for="growth_slider" class="text-light">Growth Rate</label>
-                <div class="btn-group float-right">
-                  <button id="growth_reset" class="btn btn-sm btn-secondary" title="Reset to default">
-                    <i class="fa fa-refresh" title="Reset to default"></i>
-                  </button>
-
-                  <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Growth Rate"
-                    data-trigger="focus"
-                    data-content="Growth rate determines the amount of height gained by a tree in a unit of time.">
-                    <i class="fa fa-question" title="More info"></i>
-                  </button>
-                </div>
-                <input id="growth_slider" type="range" class="custom-range">
-              </div>
-
-              <!-- Maturity age -->
-              <div class="slider-group">
-                <label for="maturity_slider" class="text-light">Reproductive Maturity</label>
-                <div class="btn-group float-right">
-                  <button id="maturity_reset" class="btn btn-sm btn-secondary" title="Reset to default">
-                    <i class="fa fa-refresh" title="Reset to default"></i>
-                  </button>
-
-                  <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Reproductive Maturity"
-                    data-trigger="focus"
-                    data-content="Reproductive maturity determines the age at which trees begin to release seeds and reproduce.">
-                    <i class="fa fa-question" title="More info"></i>
-                  </button>
-                </div>
-                <input id="maturity_slider" type="range" class="custom-range">
-              </div>
-
-              <!-- Fire resistance -->
-              <div class="slider-group">
-                <label for="resistance_slider" class="text-light">Max Fire Resistance</label>
-                <div class="btn-group float-right">
-                  <button id="resistance_reset" class="btn btn-sm btn-secondary reset-button" title="Reset to default">
-                    <i class="fa fa-refresh" title="Reset to default"></i>
-                  </button>
-
-                  <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Maximum Fire Resistance"
-                    data-trigger="focus"
-                    data-content="Fire resistance increases with age. Maximum fire resistance sets the maximum probability that a tree will resist fire.">
-                    <i class="fa fa-question" title="More info"></i>
-                  </button>
-                </div>
-                <input id="resistance_slider" type="range" class="custom-range">
-              </div>
-            </div>
-    </div>
-    </form>
-    </li>
-    </ul>
-
-    <!-- Current year form -->
-    <form class="form-inline my-2 my-lg-0">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <div class="input-group-text bg-secondary text-light">Year</div>
+      <!-- Current year form -->
+      <form class="form-inline my-2 my-lg-0">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-secondary text-light">Year</div>
+          </div>
+          <input id="year-form" class="form-control mr-3 bg-dark text-light" placeholder="Year..."
+            aria-label="Current year" disabled>
         </div>
-        <input id="year-form" class="form-control mr-3 bg-dark text-light" placeholder="Year..."
-          aria-label="Current year" disabled>
+      </form>
+
+      <!-- Dropdown parameter sliders button -->
+      <div class="nav-item dropdown">
+        <button class="btn btn-secondary bg-dark mr-3" id="slider-button" data-toggle="dropdown"
+          title="Adjust parameters"><i class='fa fa-cog'></i></button>
+        <form class="dropdown-menu text-light" style="background-color: rgba(50,50,50,0.9);">
+          <!-- Parameter sliders -->
+          <div class="slider-container" style="width: 250px; padding: 10px;">
+            <h6>WORLD PARAMETERS</h6>
+            <!-- Stand density -->
+            <div class="slider-group">
+              <label for="density_slider" class="text-light">Initial Stand Density</label>
+              <div class="btn-group float-right">
+                <button id="density_reset" class="btn btn-sm btn-secondary" title="Reset to default">
+                  <i class="fa fa-refresh" title="Reset to default"></i>
+                </button>
+                <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Initial Stand Density"
+                  data-trigger="focus"
+                  data-content="Stand density determines the number of trees that will be generated when the world is created. Reset the world to apply changes to this parameter.">
+                  <i class="fa fa-question" title="More info"></i>
+                </button>
+              </div>
+              <input id="density_slider" type="range" class="custom-range">
+            </div>
+            <!-- Ignition rate -->
+            <div class="slider-group">
+              <label for="ignition_slider" class="text-light">Ignition Rate</label>
+              <div class="btn-group float-right">
+                <button id="ignition_reset" class="btn btn-sm btn-secondary" title="Reset to default">
+                  <i class="fa fa-refresh" title="Reset to default"></i>
+                </button>
+                <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Ignition Rate"
+                  data-trigger="focus"
+                  data-content="Ignition rate determines the probability that a tree will randomly ignite, such as from lightning or human ignition.">
+                  <i class="fa fa-question" title="More info"></i>
+                </button>
+              </div>
+              <input id="ignition_slider" type="range" class="custom-range">
+            </div>
+            <!-- Sprout rate -->
+            <div class="slider-group">
+              <label for="sprout_slider" class="text-light">Sprouting Rate</label>
+              <div class="btn-group float-right">
+                <button id="sprout_reset" class="btn btn-sm btn-secondary" title="Reset to default">
+                  <i class="fa fa-refresh" title="Reset to default"></i>
+                </button>
+                <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Sprouting Rate"
+                  data-trigger="focus"
+                  data-content="Sprouting rate determines the likelihood of an empty cell sprouting a new tree.">
+                  <i class="fa fa-question" title="More info"></i>
+                </button>
+              </div>
+              <input id="sprout_slider" type="range" class="custom-range">
+            </div>
+
+
+            <div class="dropdown-divider"></div>
+            <h6>TREE PARAMETERS</h6>
+            <!-- Seed viability -->
+            <div class="slider-group">
+              <label for="viability_slider" class="text-light">Seed Viability Rate</label>
+              <div class="btn-group float-right">
+                <button id="viability_reset" class="btn btn-sm btn-secondary" title="Reset to default">
+                  <i class="fa fa-refresh" title="Reset to default"></i>
+                </button>
+
+                <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Seed Viability Rate"
+                  data-trigger="focus"
+                  data-content="Seed viability rate determines the probability that a seed released by a tree will successfully become a new tree.">
+                  <i class="fa fa-question" title="More info"></i>
+                </button>
+              </div>
+              <input id="viability_slider" type="range" class="custom-range">
+            </div>
+
+            <!-- Growth rate -->
+            <div class="slider-group">
+              <label for="growth_slider" class="text-light">Growth Rate</label>
+              <div class="btn-group float-right">
+                <button id="growth_reset" class="btn btn-sm btn-secondary" title="Reset to default">
+                  <i class="fa fa-refresh" title="Reset to default"></i>
+                </button>
+
+                <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Growth Rate" data-trigger="focus"
+                  data-content="Growth rate determines the amount of height gained by a tree in a unit of time.">
+                  <i class="fa fa-question" title="More info"></i>
+                </button>
+              </div>
+              <input id="growth_slider" type="range" class="custom-range">
+            </div>
+
+            <!-- Maturity age -->
+            <div class="slider-group">
+              <label for="maturity_slider" class="text-light">Reproductive Maturity</label>
+              <div class="btn-group float-right">
+                <button id="maturity_reset" class="btn btn-sm btn-secondary" title="Reset to default">
+                  <i class="fa fa-refresh" title="Reset to default"></i>
+                </button>
+
+                <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Reproductive Maturity"
+                  data-trigger="focus"
+                  data-content="Reproductive maturity determines the age at which trees begin to release seeds and reproduce.">
+                  <i class="fa fa-question" title="More info"></i>
+                </button>
+              </div>
+              <input id="maturity_slider" type="range" class="custom-range">
+            </div>
+
+            <!-- Fire resistance -->
+            <div class="slider-group">
+              <label for="resistance_slider" class="text-light">Max Fire Resistance</label>
+              <div class="btn-group float-right">
+                <button id="resistance_reset" class="btn btn-sm btn-secondary reset-button" title="Reset to default">
+                  <i class="fa fa-refresh" title="Reset to default"></i>
+                </button>
+
+                <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Maximum Fire Resistance"
+                  data-trigger="focus"
+                  data-content="Fire resistance increases with age. Maximum fire resistance sets the maximum probability that a tree will resist fire.">
+                  <i class="fa fa-question" title="More info"></i>
+                </button>
+              </div>
+              <input id="resistance_slider" type="range" class="custom-range">
+            </div>
+          </div>
       </div>
-    </form>
+      </form>
+    </div>
 
     <!-- TODO: Make these toggle buttons display their state -->
     <!-- Toggle tree info window -->
@@ -282,13 +281,14 @@
     </div>
   </div>
 
+  <script src="js/sliders.js"></script>
   <script src='js/controls.js'></script>
   <script src="js/World.js"></script>
   <script src="js/Wind.js"></script>
   <script src="js/Tree.js"></script>
   <!-- <script src="js/wind_main.js"></script> -->
   <script src="js/main.js"></script>
-  <script src="js/sliders.js"></script>
+
 
 </body>
 
