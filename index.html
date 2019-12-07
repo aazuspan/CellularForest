@@ -25,6 +25,13 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
   <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
+
+  <!-- Activate popovers -->
+  <script>
+    $(function () {
+      $('[data-toggle="popover"]').popover()
+    })
+  </script>
 </head>
 
 <body>
@@ -44,73 +51,202 @@
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
         </li>
-      </ul>
 
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Parameters
+          </a>
+          <form class="dropdown-menu text-light" style="background-color: rgba(50,50,50,0.9);">
+            <!-- Parameter sliders -->
+            <div class="slider-container" style="width: 250px; padding: 10px;">
+              <h6>WORLD PARAMETERS</h6>
+              <!-- Ignition rate -->
+              <div class="slider-group">
+                <label for="ignition_slider" class="text-light">Ignition Rate</label>
+                <div class="btn-group float-right">
+                  <button id="ignition_reset" class="btn btn-sm btn-secondary" title="Reset to default">
+                    <i class="fa fa-refresh" title="Reset to default"></i>
+                  </button>
+                  <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Ignition Rate"
+                    data-trigger="focus"
+                    data-content="Ignition rate determines the probability that a tree will randomly ignite, such as from lightning or human ignition.">
+                    <i class="fa fa-question" title="More info"></i>
+                  </button>
+                </div>
+                <input id="ignition_slider" type="range" class="custom-range">
+              </div>
 
-      <!-- Current year form -->
-      <form class="form-inline my-2 my-lg-0">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text bg-secondary text-light">Year</div>
-          </div>
-          <input id="year-form" class="form-control mr-3 bg-dark text-light" placeholder="Year..."
-            aria-label="Current year" disabled>
+              <!-- Stand density -->
+              <div class="slider-group">
+                <label for="density_slider" class="text-light">Initial Stand Density</label>
+                <div class="btn-group float-right">
+                  <button id="density_reset" class="btn btn-sm btn-secondary" title="Reset to default">
+                    <i class="fa fa-refresh" title="Reset to default"></i>
+                  </button>
+                  <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Initial Stand Density"
+                    data-trigger="focus"
+                    data-content="Stand density determines the number of trees that will be generated when the world is created. Reset the world to apply changes to this parameter.">
+                    <i class="fa fa-question" title="More info"></i>
+                  </button>
+                </div>
+                <input id="density_slider" type="range" class="custom-range">
+              </div>
+              <div class="dropdown-divider"></div>
+              <h6>TREE PARAMETERS</h6>
+
+              <!-- Sprout rate -->
+              <div class="slider-group">
+                <label for="sprout_slider" class="text-light">Sprouting Rate</label>
+                <div class="btn-group float-right">
+                  <button id="sprout_reset" class="btn btn-sm btn-secondary" title="Reset to default">
+                    <i class="fa fa-refresh" title="Reset to default"></i>
+                  </button>
+                  <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Sprouting Rate"
+                    data-trigger="focus"
+                    data-content="Sprouting rate determines the likelihood of an empty cell sprouting a new tree.">
+                    <i class="fa fa-question" title="More info"></i>
+                  </button>
+                </div>
+                <input id="sprout_slider" type="range" class="custom-range">
+              </div>
+
+              <!-- Seed viability -->
+              <div class="slider-group">
+                <label for="viability_slider" class="text-light">Seed Viability Rate</label>
+                <div class="btn-group float-right">
+                  <button id="viability_reset" class="btn btn-sm btn-secondary" title="Reset to default">
+                    <i class="fa fa-refresh" title="Reset to default"></i>
+                  </button>
+
+                  <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Seed Viability Rate"
+                    data-trigger="focus"
+                    data-content="Seed viability rate determines the probability that a seed released by a tree will successfully become a new tree.">
+                    <i class="fa fa-question" title="More info"></i>
+                  </button>
+                </div>
+                <input id="viability_slider" type="range" class="custom-range">
+              </div>
+
+              <!-- Growth rate -->
+              <div class="slider-group">
+                <label for="growth_slider" class="text-light">Growth Rate</label>
+                <div class="btn-group float-right">
+                  <button id="growth_reset" class="btn btn-sm btn-secondary" title="Reset to default">
+                    <i class="fa fa-refresh" title="Reset to default"></i>
+                  </button>
+
+                  <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Growth Rate"
+                    data-trigger="focus"
+                    data-content="Growth rate determines the amount of height gained by a tree in a unit of time.">
+                    <i class="fa fa-question" title="More info"></i>
+                  </button>
+                </div>
+                <input id="growth_slider" type="range" class="custom-range">
+              </div>
+
+              <!-- Maturity age -->
+              <div class="slider-group">
+                <label for="maturity_slider" class="text-light">Reproductive Maturity</label>
+                <div class="btn-group float-right">
+                  <button id="maturity_reset" class="btn btn-sm btn-secondary" title="Reset to default">
+                    <i class="fa fa-refresh" title="Reset to default"></i>
+                  </button>
+
+                  <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Reproductive Maturity"
+                    data-trigger="focus"
+                    data-content="Reproductive maturity determines the age at which trees begin to release seeds and reproduce.">
+                    <i class="fa fa-question" title="More info"></i>
+                  </button>
+                </div>
+                <input id="maturity_slider" type="range" class="custom-range">
+              </div>
+
+              <!-- Fire resistance -->
+              <div class="slider-group">
+                <label for="resistance_slider" class="text-light">Max Fire Resistance</label>
+                <div class="btn-group float-right">
+                  <button id="resistance_reset" class="btn btn-sm btn-secondary reset-button" title="Reset to default">
+                    <i class="fa fa-refresh" title="Reset to default"></i>
+                  </button>
+
+                  <button class="btn btn-sm btn-secondary" data-toggle="popover" title="Maximum Fire Resistance"
+                    data-trigger="focus"
+                    data-content="Fire resistance increases with age. Maximum fire resistance sets the maximum probability that a tree will resist fire.">
+                    <i class="fa fa-question" title="More info"></i>
+                  </button>
+                </div>
+                <input id="resistance_slider" type="range" class="custom-range">
+              </div>
+            </div>
+    </div>
+    </form>
+    </li>
+    </ul>
+
+    <!-- Current year form -->
+    <form class="form-inline my-2 my-lg-0">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text bg-secondary text-light">Year</div>
         </div>
-      </form>
+        <input id="year-form" class="form-control mr-3 bg-dark text-light" placeholder="Year..."
+          aria-label="Current year" disabled>
+      </div>
+    </form>
 
-      <!-- TODO: Make these toggle buttons display their state -->
-      <!-- Toggle tree info window -->
-      <button id="info-button" type="button" data-toggle="button" class="btn btn-secondary bg-dark mr-3"
-        title='Tree info'><i class='fa fa-info'></i></button>
+    <!-- TODO: Make these toggle buttons display their state -->
+    <!-- Toggle tree info window -->
+    <button id="info-button" type="button" data-toggle="button" class="btn btn-secondary bg-dark mr-3"
+      title='Tree info'><i class='fa fa-info'></i></button>
 
-      <!-- Toggle click-to-ignite -->
-      <button id="ignite-button" type="button" data-toggle="button" class="btn btn-secondary bg-dark mr-3"
-        title='Ignite trees'><i class='fa fa-fire'></i></button>
+    <!-- Toggle click-to-ignite -->
+    <button id="ignite-button" type="button" data-toggle="button" class="btn btn-secondary bg-dark mr-3"
+      title='Ignite trees'><i class='fa fa-fire'></i></button>
 
-      <!-- Playback control buttons -->
-      <div class="btn-group mr-5" role="group" aria-label="Basic example">
-        <button id="prev-button" type="button" class="btn btn-secondary bg-dark" title='Previous frame'><i
-            class='fa fa-chevron-left'></i></button>
-        <button id="next-button" type="button" class="btn btn-secondary bg-dark" title='Next frame'><i
-            class='fa fa-chevron-right'></i></button>
-        <button id="play-button" type="button" class="btn btn-secondary bg-dark" title='Play'><i
-            class='fa fa-play'></i></button>
-        <button id="pause-button" type="button" class="btn btn-secondary bg-dark" title='Pause'><i
-            class='fa fa-pause'></i></button>
-        <button id="reset-check-button" type="button" class="btn btn-secondary bg-dark" title='Reset'
-          data-toggle="modal" data-target="#reset-confirm-modal"><i class='fa fa-refresh'></i></button>
+    <!-- Playback control buttons -->
+    <div class="btn-group mr-5" role="group" aria-label="Basic example">
+      <button id="prev-button" type="button" class="btn btn-secondary bg-dark" title='Previous frame'><i
+          class='fa fa-chevron-left'></i></button>
+      <button id="next-button" type="button" class="btn btn-secondary bg-dark" title='Next frame'><i
+          class='fa fa-chevron-right'></i></button>
+      <button id="play-button" type="button" class="btn btn-secondary bg-dark" title='Play'><i
+          class='fa fa-play'></i></button>
+      <button id="pause-button" type="button" class="btn btn-secondary bg-dark" title='Pause'><i
+          class='fa fa-pause'></i></button>
+      <button id="reset-check-button" type="button" class="btn btn-secondary bg-dark" title='Reset' data-toggle="modal"
+        data-target="#reset-confirm-modal"><i class='fa fa-refresh'></i></button>
 
-        <!-- Reset confirm modal popup -->
-        <div class="modal fade" id="reset-confirm-modal" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Confirm reset</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                Are you sure you want to reset the world?
-              </div>
-              <div class="modal-footer">
-                <button id="reset-confirm-button" type="button" class="btn btn-danger"
-                  data-dismiss="modal">Reset</button>
-                <button id="reset-cancel-button" type="button" class="btn btn-secondary"
-                  data-dismiss="modal">Cancel</button>
-              </div>
+      <!-- Reset confirm modal popup -->
+      <div class="modal fade" id="reset-confirm-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Confirm reset</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to reset the world?
+            </div>
+            <div class="modal-footer">
+              <button id="reset-confirm-button" type="button" class="btn btn-danger" data-dismiss="modal">Reset</button>
+              <button id="reset-cancel-button" type="button" class="btn btn-secondary"
+                data-dismiss="modal">Cancel</button>
             </div>
           </div>
         </div>
-
       </div>
 
-      <!-- Random seed form -->
-      <form class="form-inline my-2 my-lg-0">
-        <input id="random-seed-form" class="form-control mr-sm-2" placeholder="Random seed..." aria-label="Random seed">
-        <button id="random-seed-reset" class="btn btn-secondary bg-dark" type='reset' title='Reset seed'><i
-            class='fa fa-random'></i> </button>
-      </form>
+    </div>
+
+    <!-- Random seed form -->
+    <form class="form-inline my-2 my-lg-0">
+      <input id="random-seed-form" class="form-control mr-sm-2" placeholder="Random seed..." aria-label="Random seed">
+      <button id="random-seed-reset" class="btn btn-secondary bg-dark" type='reset' title='Reset seed'><i
+          class='fa fa-random'></i> </button>
+    </form>
     </div>
   </nav>
 
@@ -148,8 +284,11 @@
 
   <script src='js/controls.js'></script>
   <script src="js/World.js"></script>
+  <script src="js/Wind.js"></script>
   <script src="js/Tree.js"></script>
+  <!-- <script src="js/wind_main.js"></script> -->
   <script src="js/main.js"></script>
+  <script src="js/sliders.js"></script>
 
 </body>
 
